@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://7n0k02ba5d6h"]
+
+[ext_resource type="Script" path="res://scripts/states/states_manager.gd" id="1_f10gj"]
+[ext_resource type="Script" path="res://scripts/states/player/attack/attack_idle.gd" id="2_w0k3k"]
+[ext_resource type="Script" path="res://scripts/states/player/attack/attack.gd" id="3_45q17"]
+
+[node name="AttackStateManager" type="Node"]
+script = ExtResource("1_f10gj")
+initial_state_name = "AttackIdle"
+
+[node name="AttackIdle" type="Node" parent="."]
+script = ExtResource("2_w0k3k")
+
+[node name="Attack" type="Node" parent="."]
+script = ExtResource("3_45q17")

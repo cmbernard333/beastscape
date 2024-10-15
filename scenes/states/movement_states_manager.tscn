@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0do1bb7hyr1e"]
+
+[ext_resource type="Script" path="res://scripts/states/states_manager.gd" id="1_nsgql"]
+[ext_resource type="Script" path="res://scripts/states/player/movement/idle.gd" id="2_5anqi"]
+[ext_resource type="Script" path="res://scripts/states/player/movement/jump.gd" id="3_680dl"]
+[ext_resource type="Script" path="res://scripts/states/player/movement/walk.gd" id="4_rp2wr"]
+[ext_resource type="Script" path="res://scripts/states/player/movement/fall.gd" id="5_2u6k4"]
+[ext_resource type="Script" path="res://scripts/states/dash2.gd" id="6_wixpy"]
+
+[node name="PlayerStatesManager" type="Node"]
+script = ExtResource("1_nsgql")
+
+[node name="Idle" type="Node" parent="."]
+script = ExtResource("2_5anqi")
+
+[node name="Jump" type="Node" parent="."]
+script = ExtResource("3_680dl")
+
+[node name="Walk" type="Node" parent="."]
+script = ExtResource("4_rp2wr")
+
+[node name="CoyoteTimer" type="Timer" parent="Walk"]
+
+[node name="Fall" type="Node" parent="."]
+script = ExtResource("5_2u6k4")
+
+[node name="Dash2" type="Node" parent="."]
+script = ExtResource("6_wixpy")
+
+[node name="Timer" type="Timer" parent="Dash2"]
+
+[connection signal="timeout" from="Walk/CoyoteTimer" to="Walk" method="_on_coyote_timer_timeout"]
