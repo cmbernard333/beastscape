@@ -11,8 +11,8 @@
 
 extends Node
 
-static var log_level: int = 1
+@export var log_level: int = 1
 
-static func log_print(level: int, input_string: String, args: Array):
+func log_print(level: int, input_string: String, args: Array):
 	if log_level >= level:
 		print(input_string % args)

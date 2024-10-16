@@ -8,6 +8,7 @@ var animation_completed_signal: Signal
 var character: CharacterBody2D
 var states: Dictionary = {} # the starting point for each state
 var current_state: State
+var input_buffer: InputBuffer
 
 # state changed in this state machine - used for external observers
 signal state_changed(
@@ -64,9 +65,7 @@ func init_states(
 	self.character = character
 	self.animation_completed_signal = animation_completed
 	for state: State in find_children("*", "State"):
-		state.character = character
-		state.animation_state_tree = animations
-		state.input_component = input_component
+		state.register_state(self, character, animations, input_component)
 		# make a lookup for the state
 		states[state.get_name()] = state
 		# make sure a child can signal a state change

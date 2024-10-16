@@ -9,6 +9,7 @@ class_name PlayerCharacter extends CharacterBody2D
 @onready var movement_states: StatesManager = $MovementStatesManager
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var input_component: InputComponent = $InputComponent
+@onready var states_store: StatesStore = StatesStore.new()
 
 enum FacingDirection {LEFT=0, RIGHT=1}
 
@@ -28,6 +29,8 @@ func add_state_manager(
 			input_component)
 	state_managers.append(state_manager)
 	state_manager.state_changed.connect(_on_state_change)
+	# register with the states store
+	states_store.register_state_manager(state_manager)
 
 # change the direction of the animation
 func set_animation_direction(horizontal: float = self.velocity.x) -> void:

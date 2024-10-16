@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr5kbaqjm0ice"]
+
+[ext_resource type="Script" path="res://scripts/states/input_buffer.gd" id="1_t0aaj"]
+
+[node name="InputBuffer" type="Node"]
+script = ExtResource("1_t0aaj")
+
+[node name="Timer" type="Timer" parent="."]
