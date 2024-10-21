@@ -3,8 +3,8 @@ class_name FallState extends State
 @export var walk_state_name: String = "Walk"
 @export var idle_state_name: String = "Idle"
 
-func exit() -> void:
-	super.exit()
+func exit(new_state: State) -> void:
+	super.exit(new_state)
 	self.animation_state_tree.set("parameters/conditions/is_jumping", false)
 
 # gets the gravitational force applied
@@ -17,9 +17,10 @@ func get_gravity_float() -> float:
 func get_input_velocity(move_speed: float) -> float:
 	var horizontal: float = 0.0
 	
-	var direction: float = input_component.get_movement_direction()
+	var direction: Vector2 = input_component.get_movement_direction()
 	
-	horizontal = lerp(character.velocity.x, direction * character.move_speed, 
+	# TODO: horizontal movement vs vertical movement
+	horizontal = lerp(character.velocity.x, direction.x * character.move_speed, 
 		character.physics_stats.acceleration)
 	
 	return horizontal

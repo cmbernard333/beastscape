@@ -1,3 +1,9 @@
 Cat Fighter Sprite Sheet: 
 	- link: https://opengameart.org/content/cat-fighter-sprite-sheet
 	- license: http://creativecommons.org/licenses/by/3.0/
+Free Valley Background:
+	- link: https://opengameart.org/content/free-valley-background
+	- license: https://creativecommons.org/licenses/by/4.0/
+Brawler Asset Tileset Oriental Gardens:
+	- link: https://chasersgaming.itch.io/brawler-asset-tile-set-oriental-gardens-sms
+	- license: public domain (0)

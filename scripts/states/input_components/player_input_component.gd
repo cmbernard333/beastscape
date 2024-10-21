@@ -12,12 +12,14 @@ extends InputComponent
 ##
 func get_input(input_states: Dictionary) -> String:
 	for action_name: String in input_states.keys():
-		# TODO: presently this causes a bug where if you hold MoveLeft or MoveRight
-		# then press the opposite key, followed by releasing at least one, the
-		# player stays stationary
 		if Input.is_action_just_pressed(action_name):
 			return input_states[action_name]
 	return InputComponent.NO_ACTION
 
-func get_movement_direction() -> float:
-	return Input.get_axis("MoveLeft", "MoveRight")
+func get_movement_direction() -> Vector2:
+	var direction := Vector2(
+		Input.get_axis("MoveLeft", "MoveRight"),
+		Input.get_axis("MoveUp", "MoveDown")
+		)
+	Logger.log_print(2, "Input Direction %s", [direction])
+	return direction

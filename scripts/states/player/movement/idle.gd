@@ -14,8 +14,8 @@ func enter() -> void:
 	self.animation_state_tree.set("parameters/conditions/is_idle", true)
 	super.enter()
 
-func exit() -> void:
-	super.exit()
+func exit(new_state: State) -> void:
+	super.exit(new_state)
 	self.animation_state_tree.set("parameters/conditions/is_idle", false)
 
 # gets the gravitational force applied
@@ -26,15 +26,17 @@ func get_gravity_float() -> float:
 		return character.physics_stats.fall_gravity
 
 func physics_update(delta: float) -> void:
+	# TODO: gravity doesn't apply in IDLE automatically
 	# apply gravity
-	character.velocity.y += get_gravity_float() * delta
+	# character.velocity.y += get_gravity_float() * delta
 	# apply friction
-	character.velocity.x = lerp(character.velocity.x, 0.0, character.physics_stats.friction)
+	character.velocity = movement_component.get_input_velocity(character.velocity, Vector2.ZERO, character.physics_stats.friction)
 
 	character.move_and_slide()
 	
-	if !character.is_on_floor():
-		transitioned.emit(fall_state_name)
+	# TODO: fall state may not occur from idle anymore
+	# if !character.is_on_floor():
+	# 	transitioned.emit(fall_state_name)
 	
 	if input_component.get_any_input_pressed(["MoveLeft","MoveRight"]) and\
 			 !input_component.get_all_input_pressed(["MoveLeft","MoveRight"]):
@@ -43,6 +45,8 @@ func physics_update(delta: float) -> void:
 func _ready() -> void:
 	animation_name = "SpriteAnimations_idle"
 	input_states = {
+		"MoveUp": walk_state_name,
+		"MoveDown": walk_state_name,
 		"MoveLeft": walk_state_name,
 		"MoveRight": walk_state_name,
 		"Jump": jump_state_name,

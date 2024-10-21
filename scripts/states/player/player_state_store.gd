@@ -1,13 +1,13 @@
 class_name StatesStore extends RefCounted
 
+enum StatesStoreKey {PLAYER_SPEED}
+
 ###
 ## StatesStore as a unified store for the current state of the connected StatesManagers
 ## e.g. StatesStore.store['movements_states_manager'] will return current state of the movements_states_manager
 ###
 
-var store: Dictionary = {}:
-	get: return store.duplicate()
-	set(value): return
+var store: Dictionary = {}
 	
 func register_state_manager(state_manager: StatesManager):
 	state_manager.state_changed.connect(_on_state_machinestate_changed)

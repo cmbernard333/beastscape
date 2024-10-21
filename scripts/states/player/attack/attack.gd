@@ -34,5 +34,5 @@ func enter() -> void:
 	current_attack_state.enter()
 	# Audio.play_sfx(Audio.SFX.PlayerAttack)
 
-func exit() -> void:
+func exit(new_state: State) -> void:
 	self.animation_state_tree.set("parameters/conditions/is_attacking", false)

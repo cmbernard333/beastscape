@@ -12,8 +12,8 @@ func enter() -> void:
 	character.velocity.y = get_jump_velocity()
 	# Audio.play_sfx(Audio.SFX.Jump)
 
-func exit() -> void:
-	super.exit()
+func exit(new_state: State) -> void:
+	super.exit(new_state)
 
 func get_jump_velocity() -> float:
 	return ((2.0 * character.physics_stats.jump_height) 
@@ -25,23 +25,13 @@ func get_gravity_float() -> float:
 	else:
 		return character.physics_stats.fall_gravity
 
-func get_input_velocity(move_speed: float) -> float:
-	var horizontal: float = 0.0
-	
-	var direction: float = input_component.get_movement_direction()
-	
-	if direction != 0:
-		horizontal = lerp(character.velocity.x, direction * character.move_speed, 
-			character.physics_stats.acceleration)
-	else:
-		horizontal = lerp(character.velocity.x, 0.0, character.physics_stats.friction)
-	
-	return horizontal
-
 # override
 func physics_update(delta: float) -> void:
+	var direction := input_component.get_movement_direction()
+	var input_velocity := movement_component.get_input_velocity(character.velocity, direction, character.move_speed)
+	
 	character.velocity.y += get_gravity_float() * delta
-	character.velocity.x = get_input_velocity(character.move_speed)
+	character.velocity.x = input_velocity.x
 	
 	character.set_animation_direction()
 	

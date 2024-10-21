@@ -19,9 +19,9 @@ func _dash() -> void:
 	dashing = true
 	dashing_time = 3
 	dash_timer.start(dash_timer_duration)
-	var direction: float = input_component.get_movement_direction()
-	if is_zero_approx(direction):
-		direction = -1.0 if character.get_facing_direction() == 0 else 1.0
+	var direction: Vector2 = input_component.get_movement_direction()
+	if direction.is_zero_approx():
+		direction.x = -1.0 if character.get_facing_direction() == 0 else 1.0
 	print("Dash Speed: %d" % [(dash_speed * character.move_speed) * direction])
 	character.velocity.x = (dash_speed * character.move_speed) * direction
 

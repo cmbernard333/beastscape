@@ -24,5 +24,5 @@ func get_all_input_pressed(input_action_names: Array[String]) -> bool:
 			return false
 	return true
 
-func get_movement_direction() -> float:
-	return 0
+func get_movement_direction() -> Vector2:
+	return Vector2.ZERO

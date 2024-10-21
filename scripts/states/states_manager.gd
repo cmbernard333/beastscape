@@ -25,7 +25,7 @@ func _on_state_change(new_state: String) -> void:
 func change_state(new_state: String) -> void:
 	state_changed.emit(get_current_state(), new_state, get_name())
 	if current_state:
-		current_state.exit()
+		current_state.exit(states[new_state])
 		# we replaced this state with a different one
 		if current_state.disconnect_after_exit:
 			current_state.transitioned.disconnect(_on_state_change)
@@ -57,15 +57,16 @@ func replace_state(state_name: String, new_state: State) -> State:
 # the owner can set their own base state
 func init_states(
 		character: CharacterBody2D,
+		input_component: InputComponent,
+		movement_component: MovementComponent,
 		animations: AnimationTree,
 		animation_completed: Signal = Signal(), # useful if states want to wait until their animation finishes
 		new_initial_state_name: String = "",
-		input_component: InputComponent = InputComponent.new(), # base input does nothing
 	) -> void:
 	self.character = character
 	self.animation_completed_signal = animation_completed
 	for state: State in find_children("*", "State"):
-		state.register_state(self, character, animations, input_component)
+		state.register_state(self, character, animations, input_component, movement_component)
 		# make a lookup for the state
 		states[state.get_name()] = state
 		# make sure a child can signal a state change
@@ -86,9 +87,9 @@ func physics_update(delta: float) -> void:
 		current_state.physics_update(delta)
 
 # Pass through function for handling input events
-func input(event: InputEvent) -> void:
+func process_input(event: InputEvent) -> void:
 	if current_state != null:
-		current_state.input(event)
+		current_state.process_input(event)
 	
 func _ready() -> void:
 	pass

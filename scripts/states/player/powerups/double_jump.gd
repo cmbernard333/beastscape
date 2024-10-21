@@ -11,7 +11,7 @@ class_name DoubleJump extends FallState
 var double_jump: bool = true
 
 # override
-func input(_event: InputEvent) -> void:
+func process_input(_event: InputEvent) -> void:
 	var action: String = input_component.get_input(input_states)
 	if action != InputComponent.NO_ACTION:
 		match action:

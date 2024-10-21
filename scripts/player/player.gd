@@ -7,8 +7,9 @@ class_name PlayerCharacter extends CharacterBody2D
 @onready var animations_playback: AnimationNodeStateMachinePlayback = animation_state_tree.get("parameters/playback")
 @onready var attack_states: StatesManager = $AttackStateManager
 @onready var movement_states: StatesManager = $MovementStatesManager
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite
 @onready var input_component: InputComponent = $InputComponent
+@onready var movement_component: MovementComponent = $MovementComponent
 @onready var states_store: StatesStore = StatesStore.new()
 
 enum FacingDirection {LEFT=0, RIGHT=1}
@@ -23,10 +24,11 @@ func add_state_manager(
 		initial_state_name: String = ""):
 	state_manager.init_states(
 			self, 
+			input_component,
+			movement_component,
 			animation_state_tree,
-			animation_state_tree.animation_finished, # TODO: this is redundant now
-			initial_state_name, 
-			input_component)
+			animation_state_tree.animation_finished,
+			initial_state_name)
 	state_managers.append(state_manager)
 	state_manager.state_changed.connect(_on_state_change)
 	# register with the states store
@@ -49,7 +51,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent):
 	# TODO: cannot handle input if dead
 	for state_manager: StatesManager in state_managers:
-			state_manager.input(event)
+			state_manager.process_input(event)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
