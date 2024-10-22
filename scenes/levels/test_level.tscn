@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://b2nvdcba3063l" path="res://resources/sms-oriental-gardens-spritesheet.tres" id="3_n7gtr"]
 
 [node name="TestLevel" type="Node2D"]
+y_sort_enabled = true
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_ecudp")]
 z_index = 2

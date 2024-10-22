@@ -2,6 +2,10 @@ class_name MovementComponent extends Node
 
 @export var physics_stats: PhysicsStats = load("res://resources/beat-em-up_physics.tres")
 
+func get_jump_velocity() -> float:
+	return ((2.0 * physics_stats.jump_height) 
+		/ physics_stats.jump_time_to_peak) * -1.0
+
 func get_input_velocity(
 	current_velocity: Vector2, 
 	direction: Vector2, 
