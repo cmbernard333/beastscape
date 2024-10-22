@@ -23,24 +23,7 @@ var disconnect_after_exit: bool = false
 var animation_playing: bool = false
 
 # A shared data store that states can use to share data with one another
-var states_store: StatesStore
-
-# hookup function for signals
-func on_animation_finished(animation_name: StringName):
-	Logger.log_print(2, "%s :: Animation %s completed", [get_name(), animation_name])
-	animation_playing = false
-	
-# register this state to a state machine
-func register_state(states_manager: StatesManager, 
-	character: CharacterBody2D, 
-	animation_state_tree: AnimationTree,
-	input_component: InputComponent,
-	movement_component: MovementComponent,
-	):
-		self.character = character
-		self.animation_state_tree = animation_state_tree
-		self.input_component = input_component
-		self.movement_component = movement_component
+var states_store: StatesStore = StatesStore.new()
 
 func enter() -> void:
 	# assert here because you should either use it or override it
@@ -56,6 +39,18 @@ func exit(new_state: State) -> void:
 
 func get_state_name() -> String:
 	return get_name()
+	
+# register this state to a state machine
+func register_state(states_manager: StatesManager, 
+	character: CharacterBody2D, 
+	animation_state_tree: AnimationTree,
+	input_component: InputComponent,
+	movement_component: MovementComponent,
+	):
+		self.character = character
+		self.animation_state_tree = animation_state_tree
+		self.input_component = input_component
+		self.movement_component = movement_component
 
 # Functions to process the state
 
@@ -74,3 +69,8 @@ func update(_delta: float) -> void:
 # Transition to the next state via `transitioned.emit(new_state_name)`
 func physics_update(_delta: float) -> void:
 	pass
+
+# Hookup function for signals
+func on_animation_finished(animation_name: StringName):
+	Logger.log_print(2, "%s :: Animation %s completed", [get_name(), animation_name])
+	animation_playing = false

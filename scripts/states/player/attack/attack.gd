@@ -15,6 +15,20 @@ class_name Attack extends State
 @onready var jump_attack: State = $JumpAttack
 
 var current_attack_state: State
+var characterSprite: Node2D
+
+func enter() -> void:
+	self.animation_state_tree.set("parameters/conditions/is_attacking", true)
+	characterSprite = character.sprite
+	if movement_component.is_on_ground(characterSprite):
+		current_attack_state = light_attack
+	else:
+		current_attack_state = jump_attack
+	current_attack_state.enter()
+	# Audio.play_sfx(Audio.SFX.PlayerAttack)
+
+func exit(new_state: State) -> void:
+	self.animation_state_tree.set("parameters/conditions/is_attacking", false)
 
 func physics_update(_delta: float) -> void:
 	if !animation_playing:
@@ -24,15 +38,3 @@ func _ready() -> void:
 	animation_name = "SpriteAnimations_light_attack"
 	light_attack = get_node("LightAttack")
 	jump_attack = get_node("JumpAttack")
-
-func enter() -> void:
-	self.animation_state_tree.set("parameters/conditions/is_attacking", true)
-	if character.is_on_floor():
-		current_attack_state = light_attack
-	else:
-		current_attack_state = jump_attack
-	current_attack_state.enter()
-	# Audio.play_sfx(Audio.SFX.PlayerAttack)
-
-func exit(new_state: State) -> void:
-	self.animation_state_tree.set("parameters/conditions/is_attacking", false)

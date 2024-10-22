@@ -2,7 +2,8 @@ class_name StatesStore extends RefCounted
 
 enum StatesStoreKey {
 	PLAYER_SPEED=0x80000000, 
-	PLAYER_JUMP_START
+	PLAYER_JUMP_START,
+	PLAYER_JUMP_VELOCITY
 }
 
 ###

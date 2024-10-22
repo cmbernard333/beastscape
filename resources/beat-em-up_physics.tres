@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_d4snd")
-jump_height = 24.0
-jump_time_to_peak = 0.25
-jump_time_to_descent = 0.25
+jump_height = 80.0
+jump_time_to_peak = 0.75
+jump_time_to_descent = 0.75
 friction = 0.45
 acceleration = 0.25

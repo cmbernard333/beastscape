@@ -10,7 +10,7 @@ y_sort_enabled = true
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_ecudp")]
 z_index = 2
-position = Vector2(0, 37)
+position = Vector2(24, 32)
 physics_stats = ExtResource("2_x1ay7")
 
 [node name="TileMapLayers" type="Node" parent="."]

@@ -1,12 +1,13 @@
-[gd_scene load_steps=36 format=3 uid="uid://dqx61v7b2ox27"]
+[gd_scene load_steps=37 format=3 uid="uid://dqx61v7b2ox27"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_xabck"]
 [ext_resource type="SpriteFrames" uid="uid://dq0cwpb6jhx0q" path="res://resources/player_spriteframes.tres" id="2_h35hj"]
 [ext_resource type="PackedScene" uid="uid://7n0k02ba5d6h" path="res://scenes/states/attack_state_manager.tscn" id="3_4q0hf"]
 [ext_resource type="PackedScene" uid="uid://d0do1bb7hyr1e" path="res://scenes/states/movement_states_manager.tscn" id="4_i1yv5"]
 [ext_resource type="Script" path="res://scripts/states/input_components/player_input_component.gd" id="5_ni1xw"]
-[ext_resource type="Script" path="res://scripts/states/movement_components/movement_component.gd" id="6_nrqmb"]
+[ext_resource type="Script" path="res://scripts/states/movement_components/player_movement_component.gd" id="6_nrqmb"]
 [ext_resource type="Texture2D" uid="uid://cebkdg7m3d1de" path="res://sprites/cat-shadow.png" id="7_3h2wx"]
+[ext_resource type="Resource" uid="uid://cfdf2toxlgq3q" path="res://resources/beat-em-up_physics.tres" id="8_hmfoq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s734c"]
 radius = 8.0
@@ -284,14 +285,13 @@ move_speed = 80.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(2, -9)
 sprite_frames = ExtResource("2_h35hj")
 animation = &"idle"
 
 [node name="Shadow" type="Sprite2D" parent="."]
 z_index = -1
 y_sort_enabled = true
-position = Vector2(0, 12)
+position = Vector2(-1, 21)
 texture = ExtResource("7_3h2wx")
 
 [node name="WorldCollider" type="CollisionShape2D" parent="."]
@@ -321,3 +321,4 @@ script = ExtResource("5_ni1xw")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("6_nrqmb")
+physics_stats = ExtResource("8_hmfoq")

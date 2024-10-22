@@ -1,30 +1,27 @@
 class_name MovementComponent extends Node
 
-@export var physics_stats: PhysicsStats = load("res://resources/beat-em-up_physics.tres")
+###
+## MovementComponent is an interface for determining the velocity generating by input and gravity
+## This MovementComponent is for top-down movement
+###
 
+@export var physics_stats: PhysicsStats
+
+# retrieve the jump velocity for this movement component
 func get_jump_velocity() -> float:
-	return ((2.0 * physics_stats.jump_height) 
-		/ physics_stats.jump_time_to_peak) * -1.0
+	return 0.0
 
+# retrieve the input velocity for this movement component
 func get_input_velocity(
 	current_velocity: Vector2, 
 	direction: Vector2, 
 	move_speed: float) -> Vector2:
-	var horizontal: float = 0.0
-	var vertical: float = 0.0
-	
-	# handle x direction
-	if direction.x != 0:
-		horizontal = lerp(current_velocity.x, direction.x * move_speed, physics_stats.acceleration)
+	return Vector2.ZERO
+
+# test if the provided Node2D is on the ground
+# e.g. CharacterBody2D.is_on_floor()
+func is_on_ground(character: Node2D) -> bool:
+	if character is CharacterBody2D:
+		return character.is_on_floor()
 	else:
-		horizontal = lerp(current_velocity.x, 0.0, physics_stats.friction)
-	
-	# handle y direction
-	if direction.y  != 0:
-		vertical = lerp(current_velocity.y, direction.y * move_speed, physics_stats.acceleration)
-	else:
-		vertical = lerp(current_velocity.y, 0.0, physics_stats.friction)
-	
-	Logger.log_print(2, "%s:: movement velocity {%f, %f}", [owner.get_name(), horizontal, vertical])
-	
-	return Vector2(horizontal, vertical)
+		return character.position.y >= 0

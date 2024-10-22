@@ -4,6 +4,7 @@ extends Resource
 ## Primary physics stats resource. Controls the height of a jump, how fast a 
 ## body ascends and falls, the acceleration of a body, the gravity, 
 ## and friction.
+## The default parameters are good for a 2d platformer
 ###
 
 class_name PhysicsStats
