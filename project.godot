@@ -19,6 +19,7 @@ config/icon="res://cool-karate-cat.svg"
 SignalBus="*res://scripts/autoload/signal_bus.gd"
 Logger="*res://scripts/autoload/logging.gd"
 Ref="*res://scripts/autoload/reference.gd"
+InputBuffer="*res://scripts/autoload/input_buffer.gd"
 
 [input]
 

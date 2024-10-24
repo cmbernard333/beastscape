@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dqx61v7b2ox27"]
+[gd_scene load_steps=41 format=3 uid="uid://dqx61v7b2ox27"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_xabck"]
 [ext_resource type="SpriteFrames" uid="uid://dq0cwpb6jhx0q" path="res://resources/player_spriteframes.tres" id="2_h35hj"]
@@ -181,6 +181,34 @@ tracks/1/keys = {
 "values": [&"walk"]
 }
 
+[sub_resource type="Animation" id="Animation_a5boq"]
+resource_name = "SpriteAnimations_light_attack_2"
+length = 0.55
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"light_attack_2"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4, 0.533333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 1, 2, 3, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dsr34"]
 _data = {
 "RESET": SubResource("Animation_qimmf"),
@@ -188,6 +216,7 @@ _data = {
 "SpriteAnimations_jump": SubResource("Animation_6c5j7"),
 "SpriteAnimations_jump_attack": SubResource("Animation_xd3ot"),
 "SpriteAnimations_light_attack": SubResource("Animation_7b620"),
+"SpriteAnimations_light_attack_2": SubResource("Animation_a5boq"),
 "SpriteAnimations_walk": SubResource("Animation_c7pb5")
 }
 
@@ -202,6 +231,9 @@ animation = &"SpriteAnimations_jump_attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_04crc"]
 animation = &"SpriteAnimations_light_attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kesde"]
+animation = &"SpriteAnimations_light_attack_2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n1tha"]
 animation = &"SpriteAnimations_walk"
@@ -240,6 +272,7 @@ advance_condition = &"is_attacking"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hcfvg"]
 switch_mode = 2
 advance_mode = 2
+advance_condition = &"is_idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tqvar"]
 switch_mode = 2
@@ -262,6 +295,16 @@ advance_condition = &"is_attacking"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jgb4h"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h26v3"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_idle"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t280g"]
 states/End/position = Vector2(1174, -20.5)
 states/SpriteAnimations_idle/node = SubResource("AnimationNodeAnimation_va2dn")
@@ -272,11 +315,13 @@ states/SpriteAnimations_jump_attack/node = SubResource("AnimationNodeAnimation_y
 states/SpriteAnimations_jump_attack/position = Vector2(1036.57, 368.68)
 states/SpriteAnimations_light_attack/node = SubResource("AnimationNodeAnimation_04crc")
 states/SpriteAnimations_light_attack/position = Vector2(597.325, -51.9449)
+states/SpriteAnimations_light_attack_2/node = SubResource("AnimationNodeAnimation_kesde")
+states/SpriteAnimations_light_attack_2/position = Vector2(390.923, -264.494)
 states/SpriteAnimations_walk/node = SubResource("AnimationNodeAnimation_n1tha")
 states/SpriteAnimations_walk/position = Vector2(851, 228.25)
 states/Start/position = Vector2(-111, 92.0625)
-transitions = ["Start", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_qwtvj"), "SpriteAnimations_idle", "SpriteAnimations_walk", SubResource("AnimationNodeStateMachineTransition_mkcj5"), "SpriteAnimations_walk", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_1suec"), "SpriteAnimations_walk", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_df6fe"), "SpriteAnimations_jump", "SpriteAnimations_walk", SubResource("AnimationNodeStateMachineTransition_y35et"), "SpriteAnimations_idle", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_e3vum"), "SpriteAnimations_jump", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_plppm"), "SpriteAnimations_idle", "SpriteAnimations_light_attack", SubResource("AnimationNodeStateMachineTransition_id2wg"), "SpriteAnimations_light_attack", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_hcfvg"), "SpriteAnimations_light_attack", "SpriteAnimations_walk", SubResource("AnimationNodeStateMachineTransition_tqvar"), "SpriteAnimations_walk", "SpriteAnimations_light_attack", SubResource("AnimationNodeStateMachineTransition_n3toe"), "SpriteAnimations_light_attack", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_w02mr"), "SpriteAnimations_jump", "SpriteAnimations_jump_attack", SubResource("AnimationNodeStateMachineTransition_38lup"), "SpriteAnimations_jump_attack", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_mkppc")]
-graph_offset = Vector2(-111.194, 163.38)
+transitions = ["Start", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_qwtvj"), "SpriteAnimations_idle", "SpriteAnimations_walk", SubResource("AnimationNodeStateMachineTransition_mkcj5"), "SpriteAnimations_walk", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_1suec"), "SpriteAnimations_walk", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_df6fe"), "SpriteAnimations_jump", "SpriteAnimations_walk", SubResource("AnimationNodeStateMachineTransition_y35et"), "SpriteAnimations_idle", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_e3vum"), "SpriteAnimations_jump", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_plppm"), "SpriteAnimations_idle", "SpriteAnimations_light_attack", SubResource("AnimationNodeStateMachineTransition_id2wg"), "SpriteAnimations_light_attack", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_hcfvg"), "SpriteAnimations_light_attack", "SpriteAnimations_walk", SubResource("AnimationNodeStateMachineTransition_tqvar"), "SpriteAnimations_walk", "SpriteAnimations_light_attack", SubResource("AnimationNodeStateMachineTransition_n3toe"), "SpriteAnimations_light_attack", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_w02mr"), "SpriteAnimations_jump", "SpriteAnimations_jump_attack", SubResource("AnimationNodeStateMachineTransition_38lup"), "SpriteAnimations_jump_attack", "SpriteAnimations_jump", SubResource("AnimationNodeStateMachineTransition_mkppc"), "SpriteAnimations_light_attack", "SpriteAnimations_light_attack_2", SubResource("AnimationNodeStateMachineTransition_jgb4h"), "SpriteAnimations_light_attack_2", "SpriteAnimations_idle", SubResource("AnimationNodeStateMachineTransition_h26v3")]
+graph_offset = Vector2(-111.194, -279.787)
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
 collision_mask = 6

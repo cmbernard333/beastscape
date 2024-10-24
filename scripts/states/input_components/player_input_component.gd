@@ -12,7 +12,8 @@ extends InputComponent
 ##
 func get_input(input_states: Dictionary) -> String:
 	for action_name: String in input_states.keys():
-		if Input.is_action_just_pressed(action_name):
+		# if Input.is_action_just_pressed(action_name):
+		if InputBuffer.is_action_press_buffered(action_name):
 			return input_states[action_name]
 	return InputComponent.NO_ACTION
 

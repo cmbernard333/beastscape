@@ -3,7 +3,8 @@ class_name StatesStore extends RefCounted
 enum StatesStoreKey {
 	PLAYER_SPEED=0x80000000, 
 	PLAYER_JUMP_START,
-	PLAYER_JUMP_VELOCITY
+	PLAYER_JUMP_VELOCITY,
+	PLAYER_ATTACK_ANIMATION,
 }
 
 ###
@@ -13,8 +14,8 @@ enum StatesStoreKey {
 
 var _store: Dictionary = {}
 
-func get_store_key(statesStoreKey: StatesStoreKey) -> Variant:
-	return _store[statesStoreKey]
+func get_store_key(statesStoreKey: StatesStoreKey, default: Variant = null) -> Variant:
+	return _store.get(statesStoreKey, default)
 
 func set_store_key(statesStoreKey: StatesStoreKey, object: Variant):
 	_store[statesStoreKey] = object
